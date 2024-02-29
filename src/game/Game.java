@@ -3,6 +3,9 @@ package game;
 import city.cs.engine.*;
 
 import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.ImageIcon;
+
 
 /**
  * Your main game entry point
@@ -17,13 +20,15 @@ public class Game {
         GameWorld world = new GameWorld();
         world.addStepListener(new GameStepListener());
         Character character = world.getStudent();
+        DemoKeyListener keyListener = new DemoKeyListener(character);
         character.setGravityScale(10);
 
         //2. populate it with bodies (ex: platforms, collectibles, characters)
 
 
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 500, 500);
+        GameView view = new GameView(world, 500, 500);
+
 
 
         //optional: draw a 1-metre grid over the view
@@ -48,11 +53,12 @@ public class Game {
         frame.setVisible(true);
 
         //optional: uncomment this to make a debugging view
-         JFrame debugView = new DebugViewer(world, 500, 500);
+         //JFrame debugView = new DebugViewer(world, 500, 500);
 
         // start our game world simulation!
         world.start();
     }
+
 
     /** Run the game. */
     public static void main(String[] args) {

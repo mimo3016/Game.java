@@ -10,9 +10,11 @@ public class GameWorld extends World {
 
     //Getter Method
     public Character getStudent(){
+
         return character;
     }
 
+    
     public GameWorld(){
         //make a ground platform
 
@@ -27,7 +29,7 @@ public class GameWorld extends World {
         // make a second suspended platform
         Shape platformShape1 = new BoxShape(1, 0.5f);
         StaticBody platform2 = new StaticBody(this, platformShape1);
-        platform2.setPosition(new Vec2(-2, -6f));
+        platform2.setPosition(new Vec2(-3, -6f));
 
         // make a third suspended platform
         Shape platformShape2 = new BoxShape(1, 0.5f);
@@ -54,11 +56,6 @@ public class GameWorld extends World {
         StaticBody platform7 = new StaticBody(this, platformShape6);
         platform7.setPosition(new Vec2(4, 6f));
 
-        //make a character (with an overlaid image)
-        DynamicBody student = new DynamicBody(this, studentShape);
-        student.setPosition(new Vec2(5,-5));
-        student.addImage(new BodyImage("data/rickg.png", 4));
+
     }
-
-
 }

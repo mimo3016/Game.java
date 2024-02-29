@@ -14,19 +14,29 @@ public class DemoKeyListener implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e){
+    public void keyTyped(KeyEvent e) {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e){
-        if (e.getKeyChar() == 'w'){
-            character.setLinearVelocity(new Vec2(0, 10));
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == 'w') {
+            character.jump(30);
+        } else if (e.getKeyChar() == 'd') {
+            character.startWalking(5);
+        } else if (e.getKeyChar() == 'a') {
+            character.startWalking(-5);
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+        @Override
+        public void keyReleased (KeyEvent e){
+            if (e.getKeyChar() == 'd') {
+                character.stopWalking();
+            }
+            else if (e.getKeyChar() == 'a'){
+                character.stopWalking();
+            }
+        }
     }
-}
+
