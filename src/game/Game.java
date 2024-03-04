@@ -18,7 +18,8 @@ public class Game {
 
         //1. make an empty game world
         GameWorld world = new GameWorld();
-        world.addStepListener(new GameStepListener());
+        StaticBody platform = world.getPlatform();
+        world.addStepListener(new GameStepListener(platform));
         Character character = world.getStudent();
         DemoKeyListener keyListener = new DemoKeyListener(character);
         character.setGravityScale(10);
@@ -58,6 +59,8 @@ public class Game {
         // start our game world simulation!
         world.start();
     }
+
+
 
 
     /** Run the game. */
