@@ -16,12 +16,21 @@ public class Game {
     /** Initialise a new Game. */
     public Game() {
 
+
+
+
         //1. make an empty game world
         GameWorld world = new GameWorld();
         StaticBody platform = world.getPlatform();
+        StaticBody platform5 = world.getPlatform5();
         Enemies enemies = world.getEnemies();
-        world.addStepListener(new GameStepListener(platform , enemies));
+        FlyingEnemy enemy = world.getEnemy();
+        world.addStepListener(new GameStepListener(platform , enemies, enemy, platform5));
         Character character = world.getStudent();
+
+        GameStepListener stepListener = new GameStepListener(world.getPlatform(), world.getEnemies(), world.getEnemy(), world.getPlatform5());
+        MyCollisionListener collisionListener = new MyCollisionListener(world, stepListener, world);
+        world.addMyCollisionListener(collisionListener);
 
 
 
@@ -35,9 +44,6 @@ public class Game {
         GameView view = new GameView(world, 500, 500);
 
 
-
-        //optional: draw a 1-metre grid over the view
-        // view.setGridResolution(1);
 
 
         //4. create a Java window (frame) and add the game

@@ -24,9 +24,9 @@ public class DemoKeyListener implements KeyListener {
         if (e.getKeyChar() == 'w') {
             character.jump(30);
         } else if (e.getKeyChar() == 'd') {
-            character.startWalking(5);
+            character.startWalking(7);
         } else if (e.getKeyChar() == 'a') {
-            character.startWalking(-5);
+            character.startWalking(-7);
         }
     }
 
@@ -39,5 +39,8 @@ public class DemoKeyListener implements KeyListener {
                 character.stopWalking();
             }
         }
-    }
+
+
+
+}
 
