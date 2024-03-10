@@ -19,8 +19,12 @@ public class Game {
         //1. make an empty game world
         GameWorld world = new GameWorld();
         StaticBody platform = world.getPlatform();
-        world.addStepListener(new GameStepListener(platform));
+        Enemies enemies = world.getEnemies();
+        world.addStepListener(new GameStepListener(platform , enemies));
         Character character = world.getStudent();
+
+
+
         DemoKeyListener keyListener = new DemoKeyListener(character);
         character.setGravityScale(10);
 

@@ -8,31 +8,43 @@ import org.jbox2d.common.Vec2;
 public class GameStepListener implements StepListener {
 
     private StaticBody platform;
+    private Enemies enemies;
 
-    public GameStepListener(StaticBody platform){
+
+    private boolean movingRight = true;
+
+    public GameStepListener(StaticBody platform, Enemies enemies){
         this.platform = platform;
+        this.enemies = enemies;
 
     }
+
 
     float x = 10;
     @Override
     public void preStep(StepEvent stepEvent) {
 
-        platform.setPosition(new Vec2(x-=0.15, -3f));
+        platform.setPosition(platform.getPosition().add(new Vec2(-0.01f, 0)));
+        platform.setPosition(new Vec2(x-=0.01, -3f));
 
-        if (platform.setPosition(new Vec2(-10, -3f));)
-        {
-            platform.setPosition(new Vec2(x+=0.15, -3f));
+
+        // Check if enemies reach the left or right edge
+        float xPosition = enemies.getPosition().x;
+        if (xPosition <= -6 || xPosition >= 10) {
+            // Change direction
+            movingRight = !movingRight;
         }
-        else if(platform.setPosition(new Vec2(15, -3f));)
-        {
-            platform.setPosition(new Vec2(x-=0.15, -3f));
-        }
+
+        // Move enemies accordingly
+        float moveAmount = movingRight ? 8f : -8f;
+        enemies.setLinearVelocity(new Vec2(moveAmount, 0));
+
 
     }
 
     @Override
     public void postStep(StepEvent stepEvent) {
+
 
     }
 }

@@ -7,6 +7,9 @@ public class GameWorld extends World {
     Shape shape = new BoxShape(30, 0.5f);
     Shape studentShape = new BoxShape(1,2);
     Character character = new Character(this);
+
+    Enemies enemies = new Enemies(this , false);
+
     StaticBody platform;
 
 
@@ -15,6 +18,14 @@ public class GameWorld extends World {
 
         return character;
     }
+
+    //Getter method for enemies
+
+    public Enemies getEnemies(){
+
+        return enemies;
+    }
+
 
     public GameWorld(){
 
@@ -58,6 +69,9 @@ public class GameWorld extends World {
         Shape platformShape6 = new BoxShape(1, 0.5f);
         StaticBody platform7 = new StaticBody(this, platformShape6);
         platform7.setPosition(new Vec2(4, 6f));
+
+        enemies.setPosition(new Vec2(10, -10));
+        enemies.setAlwaysOutline(true);
 
 
     }
