@@ -1,6 +1,4 @@
 package game;
-import city.cs.engine.BodyImage;
-import org.jbox2d.common.Vec2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,7 +9,6 @@ public class DemoKeyListener implements KeyListener {
 
     public DemoKeyListener(Character character) {
         this.character = character;
-
     }
 
     @Override

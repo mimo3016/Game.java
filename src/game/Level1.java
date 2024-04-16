@@ -1,13 +1,15 @@
 package game;
 
-import city.cs.engine.*;
+import city.cs.engine.BodyImage;
+import city.cs.engine.BoxShape;
+import city.cs.engine.Shape;
+import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
 import city.cs.engine.CollisionListener;
 
 
-import javax.swing.*;
+public class Level1 extends GameLevel {
 
-public class GameWorld extends World {
     Shape shape = new BoxShape(30, 0.5f);
     Shape studentShape = new BoxShape(1,2);
     Character character = new Character(this);
@@ -23,51 +25,30 @@ public class GameWorld extends World {
 
     private StaticBody platform6;
 
-    private boolean characterTouchedPortal;
-
-
-
-    private MyCollisionListener collisionListener;
-
-    public void addMyCollisionListener(MyCollisionListener listener) {
-        this.collisionListener = listener;
-    }
-
-
-
 
     //Getter Method
-    public Character getCharacter(){
+    public  Character getCharacter(){
 
         return character;
     }
 
     //Getter method for enemies
 
-    public Enemies getEnemies(){
+    public  Enemies getEnemies(){
 
         return enemies;
     }
 
-    public FlyingEnemy getEnemy(){
+    public  FlyingEnemy getEnemy(){
 
         return enemy;
     }
 
-    public boolean isComplete() {
-        return characterTouchedPortal;
+    public GameStepListener getGameStepListener(){
+        return gameStepListener;
     }
 
-    public void setCharacterTouchedPortal(boolean characterTouchedPortal) {
-        this.characterTouchedPortal = characterTouchedPortal;
-    }
-
-
-    public GameWorld(){
-
-
-        //make a ground platform
-
+    public Level1(Game game){
         StaticBody ground = new StaticBody(this, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
 
@@ -115,14 +96,30 @@ public class GameWorld extends World {
         addStepListener(gameStepListener);
 
         // Create and add a collision listener
-        MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this);
-        character.addCollisionListener(collisionListener);
+        //MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this);
+        //character.addCollisionListener(collisionListener);
 
 
         enemies.setPosition(new Vec2(10, -10));
         enemy.setPosition(new Vec2(8, 2));
 
+        //this.collisionListener = new MyCollisionListener(this, gameStepListener, this);
+        //character.addCollisionListener(this.collisionListener);
+
+        MyCollisionListener collisionListener = new MyCollisionListener(this, getGameStepListener(), this);
+        getCharacter().addCollisionListener(collisionListener);
+        getEnemies().addCollisionListener(collisionListener);
+        getEnemy().addCollisionListener(collisionListener);
+        getPlatform5().addCollisionListener(collisionListener);
+        platform6.addCollisionListener(collisionListener); // Assuming platform6 is accessible
+
+        // Set the positions of enemies and the flying enemy
+        getEnemies().setPosition(new Vec2(10, -10));
+        getEnemy().setPosition(new Vec2(8, 2));
+
     }
+
+
     public StaticBody getPlatform(){
         return platform;
     }
@@ -132,4 +129,13 @@ public class GameWorld extends World {
 
 
 
+    @Override
+    public boolean isComplete() {
+        return getCharacter().hasTouchedPortal();
+    }
+
+
 }
+
+
+

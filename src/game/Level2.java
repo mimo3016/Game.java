@@ -1,13 +1,13 @@
 package game;
 
-import city.cs.engine.*;
+import city.cs.engine.BodyImage;
+import city.cs.engine.BoxShape;
+import city.cs.engine.Shape;
+import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
-import city.cs.engine.CollisionListener;
 
+public  class Level2 extends GameLevel {
 
-import javax.swing.*;
-
-public class GameWorld extends World {
     Shape shape = new BoxShape(30, 0.5f);
     Shape studentShape = new BoxShape(1,2);
     Character character = new Character(this);
@@ -23,9 +23,6 @@ public class GameWorld extends World {
 
     private StaticBody platform6;
 
-    private boolean characterTouchedPortal;
-
-
 
     private MyCollisionListener collisionListener;
 
@@ -37,37 +34,24 @@ public class GameWorld extends World {
 
 
     //Getter Method
-    public Character getCharacter(){
+    public  Character getCharacter(){
 
         return character;
     }
 
     //Getter method for enemies
 
-    public Enemies getEnemies(){
+    public  Enemies getEnemies(){
 
         return enemies;
     }
 
-    public FlyingEnemy getEnemy(){
+    public  FlyingEnemy getEnemy(){
 
         return enemy;
     }
 
-    public boolean isComplete() {
-        return characterTouchedPortal;
-    }
-
-    public void setCharacterTouchedPortal(boolean characterTouchedPortal) {
-        this.characterTouchedPortal = characterTouchedPortal;
-    }
-
-
-    public GameWorld(){
-
-
-        //make a ground platform
-
+    public Level2(Game game){
         StaticBody ground = new StaticBody(this, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
 
@@ -131,5 +115,7 @@ public class GameWorld extends World {
     }
 
 
-
 }
+
+
+

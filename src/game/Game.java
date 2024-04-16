@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
  */
 public class Game {
 
-
+    GameLevel currentLevel;
     /** Initialise a new Game. */
     public Game() {
 
@@ -26,10 +26,19 @@ public class Game {
         Enemies enemies = world.getEnemies();
         FlyingEnemy enemy = world.getEnemy();
         world.addStepListener(new GameStepListener(platform , enemies, enemy, platform5));
-        Character character = world.getStudent();
+        Character character = world.getCharacter();
+
+
+        // make a view
+
+
+
+
+        /* set up JFrame ... */
+
 
         GameStepListener stepListener = new GameStepListener(world.getPlatform(), world.getEnemies(), world.getEnemy(), world.getPlatform5());
-        MyCollisionListener collisionListener = new MyCollisionListener(world, stepListener, world);
+        MyCollisionListener collisionListener = new MyCollisionListener(world, stepListener , world);
         world.addMyCollisionListener(collisionListener);
 
 
