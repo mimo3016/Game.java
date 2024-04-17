@@ -6,137 +6,80 @@ import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
 
-public  class Level2 extends GameLevel {
+public class Level2 extends GameLevel {
 
-    Shape shape = new BoxShape(30, 0.5f);
-    Shape studentShape = new BoxShape(1,2);
-    Character character = new Character(this);
+    private Shape shape = new BoxShape(30, 0.5f);
+    //private Character character = new Character(this);
 
-    Enemies enemies;
-    FlyingEnemy enemy;
+    private Enemies enemies;
+    private FlyingEnemy enemy;
 
-    StaticBody platform;
+    private StaticBody platform;
+    private StaticBody platform5;
 
-    StaticBody platform5;
-
-    GameStepListener gameStepListener;
-
-    private StaticBody platform6;
-
-
+    private GameStepListener gameStepListener;
     private MyCollisionListener collisionListener;
 
     public void addMyCollisionListener(MyCollisionListener listener) {
         this.collisionListener = listener;
     }
 
-
-
-
-    //Getter Method
-    public  Character getCharacter(){
-
-        return character;
-    }
-
-    //Getter method for enemies
-
-    public  Enemies getEnemies(){
-
-        return enemies;
-    }
-
-    public  FlyingEnemy getEnemy(){
-
-        return enemy;
-    }
-
-    public Level2(Game game){
+    public Level2(Game game) {
         super(game);
+        Character character = getCharacter();
+        character.setGravityScale(10);
         StaticBody ground = new StaticBody(this, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
-        character.addCollisionListener(collisionListener);
-
-
-        // Set up collision detection for losing condition
-        // Create and add a step listener
-        GameStepListener gameStepListener = new GameStepListener(getPlatform(), getEnemies(), getEnemy(), getPlatform5());
-        addStepListener(gameStepListener);
-
-        // Create and add a collision listener
-        MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this, game);
-        addMyCollisionListener(collisionListener);
 
         // Set the positions of enemies and the flying enemy
-        getEnemies().setPosition(new Vec2(10, -10));
-        getEnemy().setPosition(new Vec2(8, 2));
+        enemies = new Enemies(this);
+        enemy = new FlyingEnemy(this);
+        enemies.setPosition(new Vec2(10, -10));
+        enemy.setPosition(new Vec2(8, 2));
 
-
-        /* make a suspended platform
-        Shape platformShape = new BoxShape(1, 0.5f);
-        StaticBody platform1 = new StaticBody(this, platformShape);
-        platform1.setPosition(new Vec2(-8, -9f));
-
-        // make a second suspended platform
-        Shape platformShape1 = new BoxShape(1, 0.5f);
-        StaticBody platform2 = new StaticBody(this, platformShape1);
-        platform2.setPosition(new Vec2(-3, -6f));
-
-        // make a third suspended platform
-        Shape platformShape2 = new BoxShape(1, 0.5f);
-        platform = new StaticBody(this, platformShape2);
-        platform.setPosition(new Vec2(10, -3f));
-
-        // make a fourth suspended platform
-        Shape platformShape3 = new BoxShape(1, 0.5f);
-        StaticBody platform4 = new StaticBody(this, platformShape3);
-        platform4.setPosition(new Vec2(5, -1f));
-
-         make a fifth suspended platform
+        // Initialize platform5
         Shape platformShape4 = new BoxShape(1, 0.5f);
         platform5 = new StaticBody(this, platformShape4);
-        platform5.setPosition(new Vec2(10, 6f));*/
+        platform5.setPosition(new Vec2(10, 6f));
 
-        // make a sixth suspended platform
+         //Make a sixth suspended platform
         Shape platformShape5 = new BoxShape(2, 0.9f);
-        platform6 = new StaticBody(this, platformShape5);
-        platform6.setPosition(new Vec2(-4, 6f));
-        BodyImage platformImage = new BodyImage("data/nportal.png", 4f);
-        platform6.addImage(platformImage);
+        platform = new StaticBody(this, platformShape5);
+        platform.setPosition(new Vec2(-4, 6f));
+        BodyImage platformImage = new BodyImage("data/ufo.gif", 4f);
+        platform.addImage(platformImage);
 
+        // Initialize the collision listener
+        collisionListener = new MyCollisionListener(this, gameStepListener, this, game);
+        addMyCollisionListener(collisionListener);
 
-        // make a seventh suspended platform
-        Shape platformShape6 = new BoxShape(1, 0.5f);
-        StaticBody platform7 = new StaticBody(this, platformShape6);
-        platform7.setPosition(new Vec2(3, 8f));
-
-        // Set up collision detection for losing condition
         // Create and add a step listener
         gameStepListener = new GameStepListener(platform, enemies, enemy, platform5);
         addStepListener(gameStepListener);
 
-        // Create and add a collision listener
-        //MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this);
-        character.addCollisionListener(collisionListener);
-
-
-        //enemies.setPosition(new Vec2(10, -10));
-        //enemy.setPosition(new Vec2(8, 2));
-
+        // Add collision listener to character
+        getCharacter().addCollisionListener(collisionListener);
     }
-    public StaticBody getPlatform(){
+
+    public StaticBody getPlatform() {
         return platform;
     }
-    public StaticBody getPlatform5(){
+
+    public StaticBody getPlatform5() {
         return platform5;
     }
 
     @Override
     public boolean isComplete() {
-        return getCharacter().getKeysCount() >= 2;
+        return getCharacter().getKeysCount() > 1;
     }
 
+    @Override
+    public String getBackgroundImagePath() {
+        return "data/back.gif"; // Replace with the actual path to your background image
+    }
+
+
+
 }
-
-
 

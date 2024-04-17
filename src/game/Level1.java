@@ -47,6 +47,8 @@ public class Level1 extends GameLevel {
     public Level1(Game game){
         super(game);
 
+        Character character = getCharacter();
+        character.setGravityScale(10);
 
 
         // Create and add keys to the level
@@ -149,7 +151,7 @@ public class Level1 extends GameLevel {
 
     @Override
     public boolean isComplete() {
-        return getCharacter().getKeysCount() >= 2;
+        return getCharacter().getKeysCount() > 1;
     }
 
 

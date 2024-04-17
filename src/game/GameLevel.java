@@ -52,12 +52,12 @@ public abstract class GameLevel extends World {
         platform5 = new StaticBody(this, platformShape4);
         platform5.setPosition(new Vec2(10, 6f));
 
-        // make a sixth suspended platform
+        /* make a sixth suspended platform
         Shape platformShape5 = new BoxShape(2, 0.9f);
         platform6 = new StaticBody(this, platformShape5);
         platform6.setPosition(new Vec2(-4, 6f));
         BodyImage platformImage = new BodyImage("data/nportal.png", 4f);
-        platform6.addImage(platformImage);
+        platform6.addImage(platformImage);*/
 
 
         // make a seventh suspended platform
@@ -73,8 +73,11 @@ public abstract class GameLevel extends World {
         gameStepListener = new GameStepListener(platform, enemies, enemy, platform5);
         addStepListener(gameStepListener);
 
-        Portal portal = new Portal(this);
-        portal.setPosition(new Vec2(8, -5));
+        portal = new Portal(this);
+        portal.setPosition(new Vec2(-4, 6f));
+
+        character.addCollisionListener(new PortalEncounter(this, game));
+
 
 
     }
@@ -112,4 +115,6 @@ public abstract class GameLevel extends World {
 
     public void addMyCollisionListener(MyCollisionListener collisionListener) {
     }
+
+    public abstract String getBackgroundImagePath();
 }
