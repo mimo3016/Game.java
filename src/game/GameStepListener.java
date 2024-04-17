@@ -34,25 +34,25 @@ public class GameStepListener implements StepListener {
 
 
         //enemies
-        float xPosition = enemies.getPosition().x;
-        if (xPosition <= -6 || xPosition >= 10) {
+        if (enemies != null) {
+            float xPosition = enemies.getPosition().x;
+            if (xPosition <= -6 || xPosition >= 10) {
+                movingRight = !movingRight;
+            }
 
-            movingRight = !movingRight;
+            float moveAmount = movingRight ? 6f : -6f;
+            enemies.setLinearVelocity(new Vec2(moveAmount, 0));
         }
 
-        float moveAmount = movingRight ? 6f : -6f;
-        enemies.setLinearVelocity(new Vec2(moveAmount, 0));
+        if (enemy != null) {
+            float enemyPosition = enemy.getPosition().x;
+            if (enemyPosition <= -12 || enemyPosition >= 8) {
+                enemyMovingRight = !enemyMovingRight;
+            }
 
-
-        //flying enemy
-        float enemyPosition = enemy.getPosition().x;
-        if (enemyPosition <= -12 || enemyPosition >= 8) {
-            enemyMovingRight = !enemyMovingRight;
+            float enemyMoveAmount = enemyMovingRight ? 3f : -3f;
+            enemy.setLinearVelocity(new Vec2(enemyMoveAmount, 0));
         }
-
-
-        float enemyMoveAmount = enemyMovingRight ? 3f : -3f;
-        enemy.setLinearVelocity(new Vec2(enemyMoveAmount, 0));
 
         //platform
         float platformPosition = platform.getPosition().x;
@@ -63,6 +63,8 @@ public class GameStepListener implements StepListener {
 
         float platformMoveAmount = platformMovingRight ? 0.15f : -0.15f;
         platform.setPosition(platform.getPosition().add(new Vec2(platformMoveAmount, 0)));
+
+
 
         // Platform5 (move vertically)
         float platform5PositionY = platform5.getPosition().y;

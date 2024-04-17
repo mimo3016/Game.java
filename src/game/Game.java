@@ -12,21 +12,35 @@ import javax.swing.ImageIcon;
  */
 public class Game {
 
+    DemoKeyListener controller;
     GameLevel currentLevel;
+    GameView view;
+    Character character;
+
+
     /** Initialise a new Game. */
     public Game() {
 
 
+        currentLevel = new Level1(this);
+
+        // Initialize character after currentLevel
+        character = currentLevel.getCharacter();
+        controller = new DemoKeyListener(currentLevel.getCharacter());
+
+        GameStepListener stepListener = new GameStepListener(currentLevel.getPlatform(), currentLevel.getEnemies(), currentLevel.getEnemy(), currentLevel.getPlatform5()); // Add this line
+
+        MyCollisionListener collisionListener = new MyCollisionListener(currentLevel, stepListener, currentLevel, this); // Fix this line
 
 
         //1. make an empty game world
-        GameWorld world = new GameWorld();
-        StaticBody platform = world.getPlatform();
-        StaticBody platform5 = world.getPlatform5();
-        Enemies enemies = world.getEnemies();
-        FlyingEnemy enemy = world.getEnemy();
-        world.addStepListener(new GameStepListener(platform , enemies, enemy, platform5));
-        Character character = world.getCharacter();
+
+        /*StaticBody platform = currentLevel.getPlatform();
+        StaticBody platform5 = currentLevel.getPlatform5();
+        Enemies enemies = currentLevel.getEnemies();
+        FlyingEnemy enemy = currentLevel.getEnemy();
+        currentLevel.addStepListener(new GameStepListener(platform , enemies, enemy, platform5));
+        Character character = currentLevel.getCharacter();*/
 
 
         // make a view
@@ -37,9 +51,9 @@ public class Game {
         /* set up JFrame ... */
 
 
-        GameStepListener stepListener = new GameStepListener(world.getPlatform(), world.getEnemies(), world.getEnemy(), world.getPlatform5());
-        MyCollisionListener collisionListener = new MyCollisionListener(world, stepListener , world);
-        world.addMyCollisionListener(collisionListener);
+
+        currentLevel.addMyCollisionListener(collisionListener);
+
 
 
 
@@ -50,7 +64,9 @@ public class Game {
 
 
         //3. make a view to look into the game world
-        GameView view = new GameView(world, 500, 500);
+        view = new GameView(currentLevel, 500, 500);
+        view.addKeyListener(controller);
+
 
 
 
@@ -59,7 +75,7 @@ public class Game {
         //   view to it
         final JFrame frame = new JFrame("City Game");
         frame.add(view);
-        frame.addKeyListener(new DemoKeyListener(character));
+        frame.addKeyListener(controller);
 
         // enable the frame to quit the application
         // when the x button is pressed
@@ -76,8 +92,34 @@ public class Game {
          //JFrame debugView = new DebugViewer(world, 500, 500);
 
         // start our game world simulation!
-        world.start();
+        currentLevel.start();
     }
+
+    public void goToNextLevel() {
+        System.out.println("Yes, lets go to next level");
+
+        if (currentLevel instanceof Level1) {
+
+            currentLevel.stop();
+
+            Character prevStudent = currentLevel.getCharacter();
+
+            currentLevel = new Level2(this);
+
+            Character newCharacter = currentLevel.getCharacter();
+
+            view.setWorld(currentLevel);
+
+            controller.updateCharacter(currentLevel.getCharacter());
+
+            currentLevel.start();
+        }
+        else if (currentLevel instanceof  Level2){
+            System.out.println("Game done");
+            System.exit(0);
+        }
+    }
+
 
 
 

@@ -8,9 +8,14 @@ public class Character extends Walker {
     private final BodyImage studentImage = new BodyImage("data/unclegrandpa1.png" , 4);
     private boolean touchedPortal;
 
+    private int keysCount;
+    private int credits;
+
     public Character(World world){
         super(world, studentShape);
         addImage(studentImage);
+
+        keysCount = 0;
     }
 
     public boolean hasTouchedPortal() {
@@ -19,5 +24,22 @@ public class Character extends Walker {
 
     public void setTouchedPortal(boolean touchedPortal) {
         this.touchedPortal = touchedPortal;
+    }
+
+    public void addKeys(){
+        keysCount++;
+        System.out.println("I'm coming gate: " +
+                "keysCount = " + keysCount);
+    }
+    public int getKeysCount(){
+        return keysCount;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 }

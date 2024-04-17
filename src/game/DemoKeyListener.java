@@ -27,15 +27,20 @@ public class DemoKeyListener implements KeyListener {
         }
     }
 
-        @Override
-        public void keyReleased (KeyEvent e){
-            if (e.getKeyChar() == 'd') {
-                character.stopWalking();
-            }
-            else if (e.getKeyChar() == 'a'){
-                character.stopWalking();
-            }
+    @Override
+    public void keyReleased (KeyEvent e){
+        if (e.getKeyChar() == 'd') {
+            character.stopWalking();
         }
+        else if (e.getKeyChar() == 'a'){
+            character.stopWalking();
+        }
+    }
+
+    public void updateCharacter(Character newCharacter){
+
+        character = newCharacter;
+    }
 
 
 

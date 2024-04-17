@@ -12,8 +12,8 @@ public  class Level2 extends GameLevel {
     Shape studentShape = new BoxShape(1,2);
     Character character = new Character(this);
 
-    Enemies enemies = new Enemies(this);
-    FlyingEnemy enemy = new FlyingEnemy(this);
+    Enemies enemies;
+    FlyingEnemy enemy;
 
     StaticBody platform;
 
@@ -52,10 +52,27 @@ public  class Level2 extends GameLevel {
     }
 
     public Level2(Game game){
+        super(game);
         StaticBody ground = new StaticBody(this, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
+        character.addCollisionListener(collisionListener);
 
-        // make a suspended platform
+
+        // Set up collision detection for losing condition
+        // Create and add a step listener
+        GameStepListener gameStepListener = new GameStepListener(getPlatform(), getEnemies(), getEnemy(), getPlatform5());
+        addStepListener(gameStepListener);
+
+        // Create and add a collision listener
+        MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this, game);
+        addMyCollisionListener(collisionListener);
+
+        // Set the positions of enemies and the flying enemy
+        getEnemies().setPosition(new Vec2(10, -10));
+        getEnemy().setPosition(new Vec2(8, 2));
+
+
+        /* make a suspended platform
         Shape platformShape = new BoxShape(1, 0.5f);
         StaticBody platform1 = new StaticBody(this, platformShape);
         platform1.setPosition(new Vec2(-8, -9f));
@@ -75,10 +92,10 @@ public  class Level2 extends GameLevel {
         StaticBody platform4 = new StaticBody(this, platformShape3);
         platform4.setPosition(new Vec2(5, -1f));
 
-        // make a fifth suspended platform
+         make a fifth suspended platform
         Shape platformShape4 = new BoxShape(1, 0.5f);
         platform5 = new StaticBody(this, platformShape4);
-        platform5.setPosition(new Vec2(10, 6f));
+        platform5.setPosition(new Vec2(10, 6f));*/
 
         // make a sixth suspended platform
         Shape platformShape5 = new BoxShape(2, 0.9f);
@@ -99,12 +116,12 @@ public  class Level2 extends GameLevel {
         addStepListener(gameStepListener);
 
         // Create and add a collision listener
-        MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this);
+        //MyCollisionListener collisionListener = new MyCollisionListener(this, gameStepListener, this);
         character.addCollisionListener(collisionListener);
 
 
-        enemies.setPosition(new Vec2(10, -10));
-        enemy.setPosition(new Vec2(8, 2));
+        //enemies.setPosition(new Vec2(10, -10));
+        //enemy.setPosition(new Vec2(8, 2));
 
     }
     public StaticBody getPlatform(){
@@ -114,6 +131,10 @@ public  class Level2 extends GameLevel {
         return platform5;
     }
 
+    @Override
+    public boolean isComplete() {
+        return getCharacter().getKeysCount() >= 2;
+    }
 
 }
 

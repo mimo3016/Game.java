@@ -12,10 +12,7 @@ public class Level1 extends GameLevel {
 
     Shape shape = new BoxShape(30, 0.5f);
     Shape studentShape = new BoxShape(1,2);
-    Character character = new Character(this);
 
-    Enemies enemies = new Enemies(this);
-    FlyingEnemy enemy = new FlyingEnemy(this);
 
     StaticBody platform;
 
@@ -25,12 +22,11 @@ public class Level1 extends GameLevel {
 
     private StaticBody platform6;
 
+    Enemies enemies;
+    FlyingEnemy enemy;
 
-    //Getter Method
-    public  Character getCharacter(){
 
-        return character;
-    }
+    private MyCollisionListener collisionListener;
 
     //Getter method for enemies
 
@@ -49,6 +45,20 @@ public class Level1 extends GameLevel {
     }
 
     public Level1(Game game){
+        super(game);
+
+
+
+        // Create and add keys to the level
+        Keys keys1 = new Keys(this);
+        keys1.setPosition(new Vec2(-5, 0)); // Example position
+        Keys keys2 = new Keys(this);
+        keys2.setPosition(new Vec2(3, 5)); // Example position
+
+
+        enemies = new Enemies(this);
+        enemy = new FlyingEnemy(this);
+
         StaticBody ground = new StaticBody(this, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
 
@@ -106,7 +116,11 @@ public class Level1 extends GameLevel {
         //this.collisionListener = new MyCollisionListener(this, gameStepListener, this);
         //character.addCollisionListener(this.collisionListener);
 
-        MyCollisionListener collisionListener = new MyCollisionListener(this, getGameStepListener(), this);
+        //MyCollisionListener collisionListener = new MyCollisionListener(this, getGameStepListener(), this);
+
+        // Initialize collision listener
+        collisionListener = new MyCollisionListener(this, gameStepListener, this, game); // Fix this line
+        // Add collision listeners to relevant bodies
         getCharacter().addCollisionListener(collisionListener);
         getEnemies().addCollisionListener(collisionListener);
         getEnemy().addCollisionListener(collisionListener);
@@ -117,7 +131,11 @@ public class Level1 extends GameLevel {
         getEnemies().setPosition(new Vec2(10, -10));
         getEnemy().setPosition(new Vec2(8, 2));
 
+
+
     }
+
+
 
 
     public StaticBody getPlatform(){
@@ -131,8 +149,9 @@ public class Level1 extends GameLevel {
 
     @Override
     public boolean isComplete() {
-        return getCharacter().hasTouchedPortal();
+        return getCharacter().getKeysCount() >= 2;
     }
+
 
 
 }
