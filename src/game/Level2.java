@@ -53,9 +53,7 @@ public class Level2 extends GameLevel {
         platform = new StaticBody(this, platformShape);
         platform.setPosition(new Vec2(10, -3f));
 
-        // Set platform image
-        BodyImage platformImage = new BodyImage("data/text.jpg", 4f); // Replace "your_platform_image.png" with the actual image file
-        platform.addImage(platformImage);
+
 
         // Initialize collision listener
         collisionListener = new MyCollisionListener(this); // Assuming MyCollisionListener constructor requires a GameLevel instance

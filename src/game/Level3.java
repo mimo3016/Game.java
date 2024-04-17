@@ -42,7 +42,7 @@ public class Level3 extends GameLevel {
         platform5.setPosition(new Vec2(-4, 6f));
 
         // Set platform5 image
-        BodyImage platformImage = new BodyImage("data/ufo.gif", 4f);
+        BodyImage platformImage = new BodyImage("data/paperrb.gif", 4f);
         platform5.addImage(platformImage);
 
         // Initialize collision listener
