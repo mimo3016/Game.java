@@ -5,7 +5,6 @@ import city.cs.engine.BoxShape;
 import city.cs.engine.Shape;
 import city.cs.engine.StaticBody;
 import org.jbox2d.common.Vec2;
-import city.cs.engine.CollisionListener;
 
 
 public class Level1 extends GameLevel {
@@ -121,7 +120,7 @@ public class Level1 extends GameLevel {
         //MyCollisionListener collisionListener = new MyCollisionListener(this, getGameStepListener(), this);
 
         // Initialize collision listener
-        collisionListener = new MyCollisionListener(this, gameStepListener, this, game); // Fix this line
+        collisionListener = new MyCollisionListener(this); // Fix this line
         // Add collision listeners to relevant bodies
         getCharacter().addCollisionListener(collisionListener);
         getEnemies().addCollisionListener(collisionListener);
@@ -152,6 +151,11 @@ public class Level1 extends GameLevel {
     @Override
     public boolean isComplete() {
         return getCharacter().getKeysCount() > 1;
+    }
+
+    @Override
+    public String getBackgroundImagePath() {
+        return "data/background.jpeg"; // Replace with the actual path to your background image
     }
 
 

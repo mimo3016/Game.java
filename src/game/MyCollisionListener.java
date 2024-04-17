@@ -3,7 +3,6 @@ package game;
 import city.cs.engine.*;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MyCollisionListener implements CollisionListener {
 
@@ -12,7 +11,7 @@ public class MyCollisionListener implements CollisionListener {
     private GameLevel platform6;
     private Game game;
 
-    public MyCollisionListener(GameLevel world, GameStepListener stepListener, GameLevel platform6, Game game) {
+    public MyCollisionListener(GameLevel world) {
         this.world = world;
         this.stepListener = stepListener;
         this.platform6 = platform6;

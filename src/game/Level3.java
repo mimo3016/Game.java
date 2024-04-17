@@ -3,10 +3,7 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
-
-
-
-public class Level2 extends GameLevel {
+public class Level3 extends GameLevel {
 
     private Shape shape = new BoxShape(30, 0.5f);
     private Enemies enemies;
@@ -16,7 +13,7 @@ public class Level2 extends GameLevel {
     private GameStepListener gameStepListener;
     private MyCollisionListener collisionListener;
 
-    public Level2(Game game) {
+    public Level3(Game game) {
         super(game);
 
         Character character = getCharacter();
@@ -31,11 +28,11 @@ public class Level2 extends GameLevel {
         enemy.setPosition(new Vec2(8, 2));
 
         // Set enemy images
-        BodyImage enemyImage = new BodyImage("data/attackrb.png", 5f);
+        BodyImage enemyImage = new BodyImage("data/knightrb.png", 5f);
         enemies.removeAllImages();
         enemies.addImage(enemyImage);
 
-        BodyImage flyingEnemyImage = new BodyImage("data/ghostrb.png", 5f);
+        BodyImage flyingEnemyImage = new BodyImage("data/wizrb.png", 5f);
         enemy.removeAllImages();
         enemy.addImage(flyingEnemyImage);
 
@@ -45,17 +42,8 @@ public class Level2 extends GameLevel {
         platform5.setPosition(new Vec2(-4, 6f));
 
         // Set platform5 image
-        BodyImage platform5Image = new BodyImage("data/ufo.gif", 4f);
-        platform5.addImage(platform5Image);
-
-        // Initialize platform
-        Shape platformShape = new BoxShape(1, 0.5f);
-        platform = new StaticBody(this, platformShape);
-        platform.setPosition(new Vec2(10, -3f));
-
-        // Set platform image
-        BodyImage platformImage = new BodyImage("data/text.jpg", 4f); // Replace "your_platform_image.png" with the actual image file
-        platform.addImage(platformImage);
+        BodyImage platformImage = new BodyImage("data/ufo.gif", 4f);
+        platform5.addImage(platformImage);
 
         // Initialize collision listener
         collisionListener = new MyCollisionListener(this); // Assuming MyCollisionListener constructor requires a GameLevel instance
@@ -64,7 +52,6 @@ public class Level2 extends GameLevel {
         enemies.addCollisionListener(collisionListener);
         enemy.addCollisionListener(collisionListener);
         platform5.addCollisionListener(collisionListener);
-        platform.addCollisionListener(collisionListener); // Add collision listener to platform
 
         // Create and add a step listener
         gameStepListener = new GameStepListener(platform5, enemies, enemy, platform); // Assuming platform is properly initialized
@@ -88,14 +75,6 @@ public class Level2 extends GameLevel {
 
     @Override
     public String getBackgroundImagePath() {
-        return "data/desert.gif"; // Replace with the actual path to your background image
+        return "data/beach.gif"; // Replace with the actual path to your background image
     }
 }
-
-
-
-
-
-
-
-

@@ -9,7 +9,6 @@ public class Character extends Walker {
     private boolean touchedPortal;
 
     private int keysCount;
-    private int credits;
 
     public Character(World world){
         super(world, studentShape);
@@ -33,13 +32,5 @@ public class Character extends Walker {
     }
     public int getKeysCount(){
         return keysCount;
-    }
-
-    public int getCredits() {
-        return credits;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
     }
 }

@@ -3,8 +3,6 @@ package game;
 import city.cs.engine.*;
 
 import javax.swing.JFrame;
-import java.awt.*;
-import javax.swing.ImageIcon;
 
 
 /**
@@ -30,7 +28,7 @@ public class Game {
 
         GameStepListener stepListener = new GameStepListener(currentLevel.getPlatform(), currentLevel.getEnemies(), currentLevel.getEnemy(), currentLevel.getPlatform5()); // Add this line
 
-        MyCollisionListener collisionListener = new MyCollisionListener(currentLevel, stepListener, currentLevel, this); // Fix this line
+        MyCollisionListener collisionListener = new MyCollisionListener(currentLevel); // Fix this line
 
 
         //1. make an empty game world
@@ -95,28 +93,28 @@ public class Game {
         currentLevel.start();
     }
 
+
     public void goToNextLevel() {
-        System.out.println("Yes, lets go to next level");
+        System.out.println("Yes, let's go to the next level");
 
         if (currentLevel instanceof Level1) {
-
             currentLevel.stop();
-
-            Character prevStudent = currentLevel.getCharacter();
-
+            Character prevCharacter = currentLevel.getCharacter();
             currentLevel = new Level2(this);
-
             Character newCharacter = currentLevel.getCharacter();
-
             view.setWorld(currentLevel);
-
             controller.updateCharacter(currentLevel.getCharacter());
-
             currentLevel.start();
-        }
-        else if (currentLevel instanceof  Level2){
-            System.out.println("Game done");
-            System.exit(0);
+        } else if (currentLevel instanceof Level2) {
+            currentLevel.stop();
+            Character prevCharacter = currentLevel.getCharacter();
+            currentLevel = new Level3(this);
+            Character newCharacter = currentLevel.getCharacter();
+            view.setWorld(currentLevel);
+            controller.updateCharacter(currentLevel.getCharacter());
+            currentLevel.start();
+        } else {
+            System.out.println("Game completed!");
         }
     }
 

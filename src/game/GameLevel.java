@@ -20,6 +20,7 @@ public abstract class GameLevel extends World {
 
 
     public GameLevel(Game game){
+
         this.game = game;
 
 
@@ -33,7 +34,7 @@ public abstract class GameLevel extends World {
         platform1.setPosition(new Vec2(-8, -9f));
 
         // make a second suspended platform
-        Shape platformShape1 = new BoxShape(1, 0.5f);
+        Shape platformShape1 = new BoxShape(1f, 0.5f);
         StaticBody platform2 = new StaticBody(this, platformShape1);
         platform2.setPosition(new Vec2(-3, -6f));
 
@@ -65,6 +66,7 @@ public abstract class GameLevel extends World {
         StaticBody platform7 = new StaticBody(this, platformShape6);
         platform7.setPosition(new Vec2(3, 8f));
 
+
         // Create and add a collision listener
         character = new Character(this);
         character.addCollisionListener(new KeysPickup(character));
@@ -77,6 +79,12 @@ public abstract class GameLevel extends World {
         portal.setPosition(new Vec2(-4, 6f));
 
         character.addCollisionListener(new PortalEncounter(this, game));
+
+        // Create and add keys to the level
+        Keys keys1 = new Keys(this);
+        keys1.setPosition(new Vec2(-5, 0)); // Example position
+        Keys keys2 = new Keys(this);
+        keys2.setPosition(new Vec2(3, 5));
 
 
 
