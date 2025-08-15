@@ -1,0 +1,1 @@
+Java 2D game that focuses on leveling up while avoiding total collision with constantly moving enemies object, the goal is to reach the portal on each level to go to the next one. Friendly user interface that is to navigate and manage wile ensuring a smooth experience. Multiple aspects of Java were covered such as encapsulation, inheritance, and graphical user interface.
